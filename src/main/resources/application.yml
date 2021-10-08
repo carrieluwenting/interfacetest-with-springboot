@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/carrie?verifyServerCertificate=false&useSSL=false&requireSSL=false&&allowPublicKeyRetrieval=true
+    port: 3306
+    username: carrie
+    password: 123456
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  profiles:
+    active: test
+
+---
+spring:
+  profiles: test
+grpc:
+  server: traffic-broker-streaming-na.dev.k8s.mypna.com
+  port: 10089
+http:
+  hostname: ec2t-syncstablenatrafficservice-01.tst.mypna.com
+  port: 8080
+
+---
+spring:
+  profiles: stage
+grpc:
+  server: traffic-broker-streaming-na.dev.k8s.mypna.com
+  port: 10087
+http:
+    hostname: ec2s-syncstablenatrafficservice-01.stg.mypna.com
+    port: 8080
